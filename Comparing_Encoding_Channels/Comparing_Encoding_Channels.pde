@@ -13,6 +13,8 @@ int maxIncome, maxPopulation;
 float maxHealth;
 int N;
 
+String[] xAxes, yAxes;
+
 
 void settings(){
   final int width = displayWidth/6*5;
@@ -29,6 +31,8 @@ void setup(){
   paddingLeft = paddingRight = width/20;
   originXs = new int[4];
   originYs = new int[4];
+  xAxes = new String[]{"Income", "Income", "Heatlh", "TBC"};
+  yAxes = new String[]{"Health", "Pop.", "Pop.", "TBC"};
 
   for(int i = 0; i < originXs.length; i++){
      originXs[i] = sectionXs[i] + paddingLeft;
@@ -83,32 +87,45 @@ void draw(){
      line(originXs[i], originYs[i], originXs[i], originYs[i]-yHeight);
      
      fill(0,0,0);
-     text("X", originXs[i] + xWidth/2, originYs[i] + paddingBottom/2);
-     text("Y", originXs[i] - paddingLeft/2, originYs[i] - yHeight/2);
+     text(xAxes[i], originXs[i] + xWidth/2, originYs[i] + paddingBottom/2);
+     text(yAxes[i], originXs[i] - paddingLeft/2, originYs[i] - yHeight/2);
      fill(255,255,255);
+     
+
      
      if(i==0){
        for(int j=0; j<N; j++){
-         float xC = originXs[i] + (health[j]/maxHealth)*xWidth;
-         float yC = originYs[i] - ((float)income[j]/maxIncome)*yHeight;
+         colorMode(HSB, 360, 100, 100);
+         fill(j*360/N, 100, 100); 
+         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
+         float yC = originYs[i] - (health[j]/maxHealth)*yHeight;
         circle(xC, yC, 5); 
+        colorMode(RGB, 255, 255, 255);
        }
      } else if (i==1) {
        for(int j=0; j<N; j++){
-         float xC = originXs[i] + (health[j]/maxHealth)*xWidth;
+         colorMode(HSB, 360, 100, 100);
+
+         fill(120, j*100/N, 60); 
+         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
          float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
-         System.out.println("x: " + xC + " y: " + yC);
-        circle(xC, yC, 5); 
+         circle(xC, yC, 5); 
+         colorMode(RGB, 255, 255, 255);
        }
      }
        else if (i==2) {
        for(int j=0; j<N; j++){
-         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
+         colorMode(HSB, 360, 100, 100);
+         fill(120, 100, j*100/N); 
+         float xC = originXs[i] + (health[j]/maxHealth)*xWidth;
          float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
-         System.out.println("x: " + xC + " y: " + yC);
-        circle(xC, yC, 5); 
+         circle(xC, yC, 5); 
+         colorMode(RGB, 255, 255, 255);
+
        }  
      }
+      fill(255,255,255);
+
 
 
 }
