@@ -106,7 +106,7 @@ void draw(){
        for(int j=0; j<N; j++){
          colorMode(HSB, 360, 100, 100);
 
-         fill(120, j*100/N, 60); 
+         fill(j*360/N, 100, 100); 
          float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
          float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
          circle(xC, yC, 5); 
@@ -116,10 +116,11 @@ void draw(){
        else if (i==2) {
        for(int j=0; j<N; j++){
          colorMode(HSB, 360, 100, 100);
-         fill(120, 100, j*100/N); 
+         fill(j*360/N, 100, 100); 
          float xC = originXs[i] + (health[j]/maxHealth)*xWidth;
          float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
-         circle(xC, yC, 5); 
+         float rC = (income[j]/(5*min(income)));
+         circle(xC, yC, rC); 
          colorMode(RGB, 255, 255, 255);
 
        }  
