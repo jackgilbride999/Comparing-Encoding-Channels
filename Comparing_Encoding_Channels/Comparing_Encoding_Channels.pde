@@ -23,16 +23,16 @@ void settings(){
 }
 
 void setup(){ 
-  sectionXs = new int[]{0, width/2, 0, width/2};
-  sectionYs = new int[]{0, 0, height/2, height/2};
+  sectionXs = new int[]{0, width/2, width/4};
+  sectionYs = new int[]{0, 0, height/2};
   sectionHeight = height/2;
   sectionWidth = width/2;
   paddingTop = paddingBottom = height/20;
   paddingLeft = paddingRight = width/20;
-  originXs = new int[4];
-  originYs = new int[4];
-  xAxes = new String[]{"Income", "Income", "Heatlh", "TBC"};
-  yAxes = new String[]{"Health", "Pop.", "Pop.", "TBC"};
+  originXs = new int[3];
+  originYs = new int[3];
+  xAxes = new String[]{"Income", "Income", "Heatlh"};
+  yAxes = new String[]{"Health", "Pop.", "Pop."};
 
   for(int i = 0; i < originXs.length; i++){
      originXs[i] = sectionXs[i] + paddingLeft;
@@ -80,7 +80,7 @@ void initArrays(int N, Table table){
 }
 
 void draw(){
-  for(int i = 0; i < 4; i++){
+  for(int i = 0; i < 3; i++){
      rect(sectionXs[i], sectionYs[i], width/2, height/2); 
 
      line(originXs[i], originYs[i], originXs[i]+xWidth, originYs[i]);
