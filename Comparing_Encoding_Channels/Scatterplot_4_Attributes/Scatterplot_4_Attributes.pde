@@ -132,7 +132,8 @@ void draw() {
         translate(xC, yC);
         float angle = 2*PI*((float)population[j]/maxPopulation);
         rotate(angle);
-        rect(0, 0, 5, 2);
+        triangle(-1, 0, 1, 0, 0, -10);
+        //rect(0, 0, 5, 2);
         rotate(-angle);
         translate(-xC, -yC);
         stroke(0, 255);
@@ -208,6 +209,13 @@ void draw() {
     fill(0, 0, 0);
     text("KEY", keyXs[i] + keyWidth/2, keyYs[i] + keyHeight/20);
     fill(255, 255, 255);
+  }
+  
+  
+    rect(keyXs[0], keyYs[2], keyWidth, keyHeight);
+    fill(0, 0, 0);
+    text("KEY", keyXs[0] + keyWidth/2, keyYs[2] + keyHeight/20);
+    fill(255, 255, 255);
 
     textAlign(LEFT);
     colorMode(HSB, 360, 100, 100);
@@ -217,12 +225,11 @@ void draw() {
       regionEncoding = regionHues.get(region);
       fill(regionEncoding, 100, 100);
 
-      circle(keyXs[i] + keyWidth/10, keyYs[i] + keyHeight/10 + c*((keyHeight*9/10)/uniqueRegions.size()), 5);
+      circle(keyXs[0] + keyWidth/10, keyYs[2] + keyHeight/10 + c*((keyHeight*9/10)/uniqueRegions.size()), 5);
       fill(360, 100, 0);
-      text(region, keyXs[i] + keyWidth/5, keyYs[i] + keyHeight/10 + c*((keyHeight*9/10)/uniqueRegions.size()) + 5);
+      text(region, keyXs[0] + keyWidth/5, keyYs[2] + keyHeight/10 + c*((keyHeight*9/10)/uniqueRegions.size()) + 5);
     }
     colorMode(RGB, 255, 255, 255);
     textAlign(CENTER);
     fill(255, 255, 255);
-  }
 }
