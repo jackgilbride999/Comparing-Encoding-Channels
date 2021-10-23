@@ -62,7 +62,7 @@ void setup() {
   keyHeight = yHeight;
 
   Table table;
-  table = loadTable("../health-income-withregions.csv", "header");
+  table = loadTable("../health-income-withregions-altered.csv", "header");
   N = table.getRowCount();
   initArrays(N, table);
 
@@ -91,8 +91,8 @@ void initArrays(int N, Table table) {
   uniqueRegions = Arrays.asList(region).stream().distinct().collect(
     Collectors.toList());
 
-  maxIncome = 150000;
-  maxHealth = 90;
+  maxIncome = max(income);
+  maxHealth = max(health);
   maxPopulation = 1500000000;
   maxRegionPopulation = 0;
   for(long regionPopulation : regionPopulations.values()){
@@ -107,6 +107,9 @@ void initArrays(int N, Table table) {
 void draw() {
 
     rect(0, 0, width, height);
+    
+    
+    float[] topsOfStacks = new float[uniqueRegions.size()];
 
     line(originX, originY, originX+xWidth, originY);
     line(originX, originY, originX, originY-yHeight);
@@ -140,10 +143,20 @@ void draw() {
 
        float regionX =  originX + ((float)regionIndex/uniqueRegions.size())*xWidth;
        float regionWidth = (originX + ((float)(regionIndex+1)/uniqueRegions.size())*xWidth)-regionX;
+              
+       float regionY = topsOfStacks[regionIndex];
        float regionHeight = yHeight * ((float)population[i]/maxRegionPopulation);
        
+       topsOfStacks[regionIndex] = regionY+regionHeight;
        
-       rect(regionX, originY-regionHeight, regionWidth, regionHeight);
+       float orangeChannel = (255 * (health[i])/maxHealth)/2;
+       float blueChannel = (255 * (income[i])/maxIncome);
+       
+       fill(0, orangeChannel, blueChannel);
+
+       
+       rect(regionX, originY-topsOfStacks[regionIndex], regionWidth, regionHeight);
+       
     }
       
     fill(255, 255, 255);
