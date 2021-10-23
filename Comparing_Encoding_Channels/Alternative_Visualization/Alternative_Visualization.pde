@@ -5,9 +5,7 @@ float[] health;
 int[] population;
 List<String> uniqueRegions;
 Map<String, String> countryRegions;
-Map<String, Integer> regionHues;
-Map<String, Integer> regionSaturations;
-Map<String, Integer> regionBrightnesses;
+Map<String, Long> regionPopulations;
 
 
 int sectionX, sectionY;
@@ -19,6 +17,7 @@ int keyWidth, keyHeight;
 
 int maxIncome, maxPopulation;
 float maxHealth;
+long maxRegionPopulation;
 int N;
 
 String[] xAxes, yAxes, titles;
@@ -67,14 +66,6 @@ void setup() {
   N = table.getRowCount();
   initArrays(N, table);
 
-  for (int i=0; i<N; i++) {
-    System.out.println("" + country[i] + " " + region[i] + " " + income[i] + " " + health[i] + " " + population[i]);
-  }
-
-  System.out.println("" + paddingLeft);
-  System.out.println("" + paddingTop);
-
-  System.out.println(maxIncome + " " + maxHealth + " " + maxPopulation);
 }
 
 void initArrays(int N, Table table) {
@@ -84,9 +75,8 @@ void initArrays(int N, Table table) {
   health = new float[N];
   population = new int[N];
   countryRegions = new HashMap<String, String>();
-  regionHues = new HashMap<String, Integer>();
-  regionSaturations = new HashMap<String, Integer>();
-  regionBrightnesses = new HashMap<String, Integer>();
+  regionPopulations = new HashMap<String, Long>();
+
 
   for (int i=0; i<N; i++) {
     TableRow row = table.getRow(i);
@@ -96,18 +86,22 @@ void initArrays(int N, Table table) {
     health[i] = row.getFloat("health");
     population[i] = row.getInt("population");
     countryRegions.put(row.getString("country"), row.getString("region"));
+    regionPopulations.put(row.getString("region"), regionPopulations.get(row.getString("region"))!=null ? regionPopulations.get(row.getString("region")) + row.getInt("population") : row.getInt("population"));
   }
   uniqueRegions = Arrays.asList(region).stream().distinct().collect(
     Collectors.toList());
-  for (int i=0; i < uniqueRegions.size(); i++)
-  {
-    regionHues.put(uniqueRegions.get(i), i* 360/uniqueRegions.size());
-    regionSaturations.put(uniqueRegions.get(i), i * 100/uniqueRegions.size());
-    regionBrightnesses.put(uniqueRegions.get(i), i* 100/uniqueRegions.size());
-  }
+
   maxIncome = 150000;
   maxHealth = 90;
   maxPopulation = 1500000000;
+  maxRegionPopulation = 0;
+  for(long regionPopulation : regionPopulations.values()){
+      if(regionPopulation > maxRegionPopulation){
+         maxRegionPopulation = regionPopulation; 
+      }
+  }
+  
+  System.out.println(maxRegionPopulation);
 }
 
 void draw() {
@@ -116,7 +110,6 @@ void draw() {
 
     line(originX, originY, originX+xWidth, originY);
     line(originX, originY, originX, originY-yHeight);
-
 
     fill(0, 0, 0);
     textSize(16);
@@ -147,10 +140,10 @@ void draw() {
 
        float regionX =  originX + ((float)regionIndex/uniqueRegions.size())*xWidth;
        float regionWidth = (originX + ((float)(regionIndex+1)/uniqueRegions.size())*xWidth)-regionX;
+       float regionHeight = yHeight * ((float)population[i]/maxRegionPopulation);
        
        
-       
-       rect(regionX, originY-100, regionWidth, 100);
+       rect(regionX, originY-regionHeight, regionWidth, regionHeight);
     }
       
     fill(255, 255, 255);
