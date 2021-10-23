@@ -185,13 +185,13 @@ void draw() {
 
     rect(keyXs[i], keyYs[i], keyWidth, keyHeight);
     fill(0, 0, 0);
-    text("KEY", keyXs[i] + keyWidth/2, keyYs[i] + keyHeight/20);
+    text("POPULATION KEY", keyXs[i] + keyWidth/2, keyYs[i] + keyHeight/20);
     fill(255, 255, 255);
   }
 
 
   textAlign(LEFT);
-  int keyNumRotations = 4;
+  int keyNumRotations = 5;
   for (int c=0; c<=keyNumRotations; c++) {
     colorMode(HSB, 360, 100, 100);
     fill(100, 100, 100);
@@ -220,7 +220,7 @@ void draw() {
 
 
   textAlign(LEFT);
-  int keyNumBrightnesses = 4;
+  int keyNumBrightnesses = 5;
   for (int c=0; c<=keyNumBrightnesses; c++) {
 
     colorMode(HSB, 360, 100, 100);
@@ -242,45 +242,32 @@ void draw() {
   
   
   textAlign(LEFT);
-  int keyNumSizes = 4;
+  int keyNumSizes = 5;
   for (int c=0; c<=keyNumSizes; c++) {
 
     colorMode(HSB, 360, 100, 100);
 
-   // float rC = (sqrt(population[j])/(5*sqrt(min(population))));
-    
-    float angle = (c * (maxPopulation/keyNumRotations));
-    
-    // float rC = (sqrt(population[j])/(5*sqrt(min(population))));
-
-
-    
-    
-   
-    //int size = sqrt(maxPopulation);
     float size =  c * maxPopulation/keyNumSizes;
-    size = sqrt(size); //??
+    size = (sqrt((maxPopulation/keyNumSizes)*c)/(5*sqrt(min(population))));
+
     fill(100, 100, 100);
 
-    circle(keyXs[2] + keyWidth/10, keyYs[2] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses), size);
+    circle(keyXs[2] + keyWidth/8, keyYs[2] + keyHeight/10 + c*((keyHeight*8/10)/keyNumSizes), size+1);
     fill(360, 100, 0);
 
-    float population = pow((c * (sqrt(maxPopulation)/keyNumBrightnesses)), 2);
+    float population = pow((c * (sqrt(maxPopulation)/keyNumSizes)), 2);
     String pop = NumberFormat.getInstance().format(population);
     
-    text(pop, keyXs[2] + keyWidth/5, keyYs[2] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses) + 5);
+    text(pop, keyXs[2] + keyWidth/4, keyYs[2] + keyHeight/10 + c*((keyHeight*8/10)/keyNumSizes) + 5);
     colorMode(RGB, 255, 255, 255);
     fill(0, 0, 0);
   }
   textAlign(CENTER);
 
-
-
-
   fill(255, 255, 255);
   rect(keyXs[0], keyYs[2], keyWidth, keyHeight);
   fill(0, 0, 0);
-  text("KEY", keyXs[0] + keyWidth/2, keyYs[2] + keyHeight/20);
+  text("REGION KEY", keyXs[0] + keyWidth/2, keyYs[2] + keyHeight/20);
   fill(255, 255, 255);
 
   textAlign(LEFT);
