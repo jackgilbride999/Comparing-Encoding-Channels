@@ -128,7 +128,7 @@ void draw() {
         fill(regionHues.get(countryRegions.get(country[j])), 100, 100);
         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
         float yC = originYs[i] - (health[j]/maxHealth)*yHeight;
-       // stroke(0, 0);
+        // stroke(0, 0);
         translate(xC, yC);
         float angle = PI*((float)sqrt(population[j])/sqrt(maxPopulation));
         rotate(angle);
@@ -148,13 +148,12 @@ void draw() {
         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
         float yC = originYs[i] - (health[j]/maxHealth)*yHeight;
         circle(xC, yC, 10);
-                fill(regionHues.get(countryRegions.get(country[j])), 100, 100);
+        fill(regionHues.get(countryRegions.get(country[j])), 100, 100);
         circle(xC, yC, 5);
 
         colorMode(RGB, 255, 255, 255);
         fill(0, 0, 0);
       }
-
     } else if (i==2) {
       for (int j=0; j<N; j++) {
         colorMode(HSB, 360, 100, 100);
@@ -166,23 +165,22 @@ void draw() {
         colorMode(RGB, 255, 255, 255);
         fill(0, 0, 0);
       }
-
     }
-    
-    
-      for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
-        float value = originXs[i] + ((float)k/maxIncome)*xWidth;
-        line(value, originYs[i], value, originYs[i]+5);
-        text(k, value, originYs[i]+paddingBottom*0.4);
-      }
-      textAlign(RIGHT);
-      for (int l=0; l<=maxPopulation; l+=(maxPopulation/10))
-      {
-        float value = originYs[i] - ((float)l/maxPopulation)*yHeight;
-        line(originXs[i]-5, value, originXs[i], value);
-        text(l/1000000, originXs[i]-8, value+3);
-      }
-      textAlign(CENTER);
+
+
+    for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
+      float value = originXs[i] + ((float)k/maxIncome)*xWidth;
+      line(value, originYs[i], value, originYs[i]+5);
+      text(k, value, originYs[i]+paddingBottom*0.4);
+    }
+    textAlign(RIGHT);
+    for (int l=0; l<=maxPopulation; l+=(maxPopulation/10))
+    {
+      float value = originYs[i] - ((float)l/maxPopulation)*yHeight;
+      line(originXs[i]-5, value, originXs[i], value);
+      text(l/1000000, originXs[i]-8, value+3);
+    }
+    textAlign(CENTER);
     fill(255, 255, 255);
 
     rect(keyXs[i], keyYs[i], keyWidth, keyHeight);
@@ -195,58 +193,91 @@ void draw() {
   textAlign(LEFT);
   int keyNumRotations = 4;
   for (int c=0; c<=keyNumRotations; c++) {
-        colorMode(HSB, 360, 100, 100);
-        fill(100, 100, 100);
-        float xC = keyXs[0] + keyWidth/8;
-        float yC = keyYs[0] + keyHeight/8 + c*((keyHeight*8/10)/keyNumRotations);
-       // stroke(0, 0);
-        translate(xC, yC);
-        
-        float angle = c * ((PI)/keyNumRotations);
-        
-        // = 2*PI*((float)population[j]/maxPopulation);
-        rotate(angle);
-        triangle(-2, 5, 2, 5, 0, -5);
-        //rect(0, 0, 5, 2);
-        rotate(-angle);
-        translate(-xC, -yC);
-        stroke(0, 255);
-        colorMode(RGB, 255, 255, 255);
-        fill(0, 0, 0);
-        float population = pow((c * (sqrt(maxPopulation)/keyNumRotations)), 2);
-        String pop = NumberFormat.getInstance().format(population);
+    colorMode(HSB, 360, 100, 100);
+    fill(100, 100, 100);
+    float xC = keyXs[0] + keyWidth/8;
+    float yC = keyYs[0] + keyHeight/8 + c*((keyHeight*8/10)/keyNumRotations);
+    // stroke(0, 0);
+    translate(xC, yC);
 
-        text(pop, xC + 20, yC + 2);
-    }
-    textAlign(CENTER);
+    float angle = c * ((PI)/keyNumRotations);
+
+    // = 2*PI*((float)population[j]/maxPopulation);
+    rotate(angle);
+    triangle(-2, 5, 2, 5, 0, -5);
+    //rect(0, 0, 5, 2);
+    rotate(-angle);
+    translate(-xC, -yC);
+    stroke(0, 255);
+    colorMode(RGB, 255, 255, 255);
+    fill(0, 0, 0);
+    float population = pow((c * (sqrt(maxPopulation)/keyNumRotations)), 2);
+    String pop = NumberFormat.getInstance().format(population);
+
+    text(pop, xC + 20, yC + 2);
+  }
+  textAlign(CENTER);
 
 
   textAlign(LEFT);
-  int keyNumBrightnesses = 8;
+  int keyNumBrightnesses = 4;
   for (int c=0; c<=keyNumBrightnesses; c++) {
 
-            colorMode(HSB, 360, 100, 100);
+    colorMode(HSB, 360, 100, 100);
 
-    int brightness =  c* 100/keyNumBrightnesses;
-    fill(100, 100, brightness);
+    int brightness =  c * 100/keyNumBrightnesses;
+    fill(100, 0, 100-brightness);
 
     circle(keyXs[1] + keyWidth/10, keyYs[1] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses), 5);
     fill(360, 100, 0);
+
+    float population = pow((c * (sqrt(maxPopulation)/keyNumBrightnesses)), 2);
+    String pop = NumberFormat.getInstance().format(population);
     
-    float health = c * (maxHealth/keyNumBrightnesses);
+    text(pop, keyXs[1] + keyWidth/5, keyYs[1] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses) + 5);
+    colorMode(RGB, 255, 255, 255);
+    fill(0, 0, 0);
+  }
+  textAlign(CENTER);
+  
+  
+  textAlign(LEFT);
+  int keyNumSizes = 4;
+  for (int c=0; c<=keyNumSizes; c++) {
 
-    text(health, keyXs[1] + keyWidth/5, keyYs[1] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses) + 5);
-        colorMode(RGB, 255, 255, 255);
-        fill(0, 0, 0);
+    colorMode(HSB, 360, 100, 100);
+
+   // float rC = (sqrt(population[j])/(5*sqrt(min(population))));
+    
+    float angle = (c * (maxPopulation/keyNumRotations));
+    
+    // float rC = (sqrt(population[j])/(5*sqrt(min(population))));
 
 
-    }
-    textAlign(CENTER);
+    
+    
+   
+    //int size = sqrt(maxPopulation);
+    float size =  c * maxPopulation/keyNumSizes;
+    size = sqrt(size); //??
+    fill(100, 100, 100);
+
+    circle(keyXs[2] + keyWidth/10, keyYs[2] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses), size);
+    fill(360, 100, 0);
+
+    float population = pow((c * (sqrt(maxPopulation)/keyNumBrightnesses)), 2);
+    String pop = NumberFormat.getInstance().format(population);
+    
+    text(pop, keyXs[2] + keyWidth/5, keyYs[2] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses) + 5);
+    colorMode(RGB, 255, 255, 255);
+    fill(0, 0, 0);
+  }
+  textAlign(CENTER);
 
 
 
 
-  fill(255,255,255);
+  fill(255, 255, 255);
   rect(keyXs[0], keyYs[2], keyWidth, keyHeight);
   fill(0, 0, 0);
   text("KEY", keyXs[0] + keyWidth/2, keyYs[2] + keyHeight/20);
