@@ -128,11 +128,11 @@ void draw() {
         fill(regionHues.get(countryRegions.get(country[j])), 100, 100);
         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
         float yC = originYs[i] - (health[j]/maxHealth)*yHeight;
-        stroke(0, 0);
+       // stroke(0, 0);
         translate(xC, yC);
-        float angle = 2*PI*((float)sqrt(population[j])/sqrt(maxPopulation));
+        float angle = PI*((float)sqrt(population[j])/sqrt(maxPopulation));
         rotate(angle);
-        triangle(-1, 5, 1, 5, 0, -5);
+        triangle(-2, 5, 2, 5, 0, -5);
         //rect(0, 0, 5, 2);
         rotate(-angle);
         translate(-xC, -yC);
@@ -193,7 +193,7 @@ void draw() {
 
 
   textAlign(LEFT);
-  int keyNumRotations = 6;
+  int keyNumRotations = 4;
   for (int c=0; c<=keyNumRotations; c++) {
         colorMode(HSB, 360, 100, 100);
         fill(100, 100, 100);
@@ -202,7 +202,7 @@ void draw() {
        // stroke(0, 0);
         translate(xC, yC);
         
-        float angle = c * ((2*PI)/keyNumRotations);
+        float angle = c * ((PI)/keyNumRotations);
         
         // = 2*PI*((float)population[j]/maxPopulation);
         rotate(angle);
@@ -213,7 +213,7 @@ void draw() {
         stroke(0, 255);
         colorMode(RGB, 255, 255, 255);
         fill(0, 0, 0);
-        int population = c * (maxPopulation/keyNumRotations);
+        float population = pow((c * (sqrt(maxPopulation)/keyNumRotations)), 2);
         String pop = NumberFormat.getInstance().format(population);
 
         text(pop, xC + 20, yC + 2);
