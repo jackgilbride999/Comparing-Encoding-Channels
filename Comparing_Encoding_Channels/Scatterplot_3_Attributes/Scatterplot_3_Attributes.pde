@@ -44,9 +44,9 @@ void setup() {
   paddingRight = width/40;
   originXs = new int[3];
   originYs = new int[3];
-  xAxes = new String[]{"Income", "Income", "Heatlh"};
-  yAxes = new String[]{"Health", "Pop.", "Pop."};
-  titles = new String[]{"Income vs Health", "Income vs Population", "Health vs Population"};
+  xAxes = new String[]{"Income", "Income", "Income"};
+  yAxes = new String[]{"Health", "Heath", "Health"};
+  titles = new String[]{"Income vs Health", "Income vs Health", "Income vs Health"};
   keyXs= new int[3];
   keyYs = new int[3];
 
@@ -149,6 +149,31 @@ void draw() {
         colorMode(RGB, 255, 255, 255);
         fill(0, 0, 0);
       }
+    } else if (i==1) {
+      for (int j=0; j<N; j++) {
+        colorMode(HSB, 360, 100, 100);
+
+        fill(120, regionSaturations.get(countryRegions.get(country[j])), 100);
+        float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
+        float yC = originYs[i] - (health[j]/maxHealth)*yHeight;
+        circle(xC, yC, 5);
+        colorMode(RGB, 255, 255, 255);
+        fill(0, 0, 0);
+      }
+
+    } else if (i==2) {
+      for (int j=0; j<N; j++) {
+        colorMode(HSB, 360, 100, 100);
+        fill(120, 100, regionBrightnesses.get(countryRegions.get(country[j])));
+        float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
+        float yC = originYs[i] - (health[j]/maxHealth)*yHeight;
+        circle(xC, yC, 5);
+        colorMode(RGB, 255, 255, 255);
+        fill(0, 0, 0);
+        textSize(12);
+      }
+    }
+
       for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
         float value = originXs[i] + ((float)k/maxIncome)*xWidth;
         line(value, originYs[i], value, originYs[i]+5);
@@ -162,57 +187,6 @@ void draw() {
         text(l, originXs[i]-8, value+3);
       }
       textAlign(CENTER);
-    } else if (i==1) {
-      for (int j=0; j<N; j++) {
-        colorMode(HSB, 360, 100, 100);
-
-        fill(120, regionSaturations.get(countryRegions.get(country[j])), 100);
-        float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
-        float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
-        circle(xC, yC, 5);
-        colorMode(RGB, 255, 255, 255);
-        fill(0, 0, 0);
-      }
-
-      for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
-        float value = originXs[i] + ((float)k/maxIncome)*xWidth;
-        line(value, originYs[i], value, originYs[i]+5);
-        text(k, value, originYs[i]+paddingBottom*0.4);
-      }
-      textAlign(RIGHT);
-      for (int l=0; l<=maxPopulation; l+=(maxPopulation/10))
-      {
-        float value = originYs[i] - ((float)l/maxPopulation)*yHeight;
-        line(originXs[i]-5, value, originXs[i], value);
-        text(l/1000000, originXs[i]-8, value+3);
-      }
-      textAlign(CENTER);
-    } else if (i==2) {
-      for (int j=0; j<N; j++) {
-        colorMode(HSB, 360, 100, 100);
-        fill(120, 100, regionBrightnesses.get(countryRegions.get(country[j])));
-        float xC = originXs[i] + (health[j]/maxHealth)*xWidth;
-        float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
-        circle(xC, yC, 5);
-        colorMode(RGB, 255, 255, 255);
-        fill(0, 0, 0);
-        textSize(12);
-      }
-      for (int k=0; k<=maxHealth; k+=floor(maxHealth/9)) {
-        float value = originXs[i] + ((float)k/maxHealth)*xWidth;
-        line(value, originYs[i], value, originYs[i]+5);
-        text(k, value, originYs[i]+paddingBottom*0.4);
-      }
-      textAlign(RIGHT);
-      for (int l=0; l<=maxPopulation; l+=(maxPopulation/10))
-      {
-        float value = originYs[i] - ((float)l/maxPopulation)*yHeight;
-        line(originXs[i]-5, value, originXs[i], value);
-        text(l/1000000, originXs[i]-8, value+3);
-      }
-      textAlign(CENTER);
-    }
-
 
     fill(255, 255, 255);
     rect(keyXs[i], keyYs[i], keyWidth, keyHeight);
