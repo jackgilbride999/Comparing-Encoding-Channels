@@ -3,6 +3,8 @@ String[] region;
 int[] income;
 float[] health;
 int[] population;
+Map<String, String> countryRegions;
+Map<String, Integer> regionHues;
 
 int[] sectionXs, sectionYs;
 int sectionHeight, sectionWidth, paddingTop, paddingLeft, paddingBottom, paddingRight;
@@ -16,6 +18,9 @@ int N;
 String[] xAxes, yAxes, titles;
 
 PFont myFont;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 void settings() {
   final int width = displayWidth/6*5;
@@ -53,12 +58,6 @@ void setup() {
   N = table.getRowCount();
   initArrays(N, table);
 
-  for (int i=0; i<N; i++) {
-    System.out.println("" + country[i] + " " + region[i] + " " + income[i] + " " + health[i] + " " + population[i]);
-  }
-
-  System.out.println("" + paddingLeft);
-  System.out.println("" + paddingTop);
 }
 
 void initArrays(int N, Table table) {
@@ -67,6 +66,8 @@ void initArrays(int N, Table table) {
   income = new int[N];
   health = new float[N];
   population = new int[N];
+  countryRegions = new HashMap<String, String>();
+  regionHues = new HashMap<String, Integer>();
 
   for (int i=0; i<N; i++) {
     TableRow row = table.getRow(i);
@@ -75,8 +76,17 @@ void initArrays(int N, Table table) {
     income[i] = row.getInt("income");
     health[i] = row.getFloat("health");
     population[i] = row.getInt("population");
+    countryRegions.put(row.getString("country"), row.getString("region"));
   }
+  List<String> uniqueRegions = Arrays.asList(region).stream().distinct().collect(
+                Collectors.toList());
 
+  for(int i=0; i < uniqueRegions.size(); i++)
+  {
+     regionHues.put(uniqueRegions.get(i), i* 360/uniqueRegions.size()); 
+    
+  }  
+  
   maxIncome = 150000;
   maxHealth = 90;
   maxPopulation = 1500000000;
@@ -97,14 +107,16 @@ void draw() {
     fill(0, 0, 0);
     triangle(originXs[i]-2, originYs[i]-yHeight, originXs[i], originYs[i]-yHeight-5, originXs[i]+2, originYs[i]-yHeight);
     triangle(originXs[i]+xWidth, originYs[i]-2, originXs[i]+xWidth, originYs[i]+2, originXs[i]+xWidth+5, originYs[i]);
-    text(xAxes[i], originXs[i] + xWidth/2, originYs[i] + paddingBottom/2);
+    text(xAxes[i], originXs[i] + xWidth/2, originYs[i] + paddingBottom*0.75);
     text(yAxes[i], originXs[i] - paddingLeft/2, originYs[i] - yHeight/2);
     fill(255, 255, 255);
 
     if (i==0) {
       for (int j=0; j<N; j++) {
+        
         colorMode(HSB, 360, 100, 100);
-        fill(j*360/N, 100, 100);
+        fill(regionHues.get(countryRegions.get(country[j])), 100, 100);
+        System.out.println(country[i]);
         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
         float yC = originYs[i] - (health[j]/maxHealth)*yHeight;
         stroke(0, 0);
@@ -134,8 +146,8 @@ void draw() {
     } else if (i==1) {
       for (int j=0; j<N; j++) {
         colorMode(HSB, 360, 100, 100);
+        fill(regionHues.get(countryRegions.get(country[j])), 100*(health[j]/maxHealth), 100*(health[j]/maxHealth));
 
-        fill(j*360/N, 100*(health[j]/maxHealth), 100*(health[j]/maxHealth));
         float xC = originXs[i] + ((float)income[j]/maxIncome)*xWidth;
         float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
         circle(xC, yC, 5);
@@ -159,7 +171,7 @@ void draw() {
     } else if (i==2) {
       for (int j=0; j<N; j++) {
         colorMode(HSB, 360, 100, 100);
-        fill(j*360/N, 100, 100);
+        fill(regionHues.get(countryRegions.get(country[j])), 100, 100);
         float xC = originXs[i] + (health[j]/maxHealth)*xWidth;
         float yC = originYs[i] - ((float)population[j]/maxPopulation)*yHeight;
         float rC = (income[j]/(5*min(income)));
