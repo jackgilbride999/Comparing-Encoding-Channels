@@ -7,7 +7,6 @@ List<String> uniqueRegions;
 Map<String, String> countryRegions;
 Map<String, Long> regionPopulations;
 
-
 int sectionX, sectionY;
 int paddingTop, paddingLeft, paddingBottom, paddingRight;
 int originX, originY;
@@ -19,8 +18,6 @@ int maxIncome, maxPopulation;
 float maxHealth;
 long maxRegionPopulation;
 int N;
-
-String[] xAxes, yAxes, titles;
 
 PFont myFont;
 
@@ -38,11 +35,6 @@ void setup() {
   paddingTop = paddingBottom = height/10;
   paddingLeft = width/5;
   paddingRight = width/40;
-
-  xAxes = new String[]{"Income", "Income", "Income"};
-  yAxes = new String[]{"Health", "Heath", "Health"};
-  titles = new String[]{"Income vs Health", "Income vs Health", "Income vs Health"};
-
 
   xWidth = width - paddingLeft - paddingRight;
   yHeight = height - paddingTop - paddingBottom;
@@ -116,15 +108,12 @@ void draw() {
 
     fill(0, 0, 0);
     textSize(16);
-    text("title", 0+paddingLeft + xWidth/2, 0+paddingTop*0.75);
+    text("Population, Income, and Health per country", 0+paddingLeft + xWidth/2, 0+paddingTop*0.75);
     textSize(12);
 
     triangle(originX-2, originY-yHeight, originX, originY-yHeight-5, originX+2, originY-yHeight);
     triangle(originX+xWidth, originY-2, originX+xWidth, originY+2, originX+xWidth+5, originY);
-    textAlign(RIGHT);
-    text("Y", originX - paddingLeft/8, originY - yHeight/2);
     textAlign(CENTER);
-    text("x", originX + xWidth/2, originY + paddingBottom*0.75);
 
     for (int k=0; k<uniqueRegions.size(); k++){
           textAlign(CENTER);
@@ -149,13 +138,14 @@ void draw() {
        
        topsOfStacks[regionIndex] = regionY+regionHeight;
        
-       float orangeChannel = (255 * (health[i])/maxHealth)/2;
-       float blueChannel = (255 * (income[i])/maxIncome);
-       
-       fill(0, orangeChannel, blueChannel);
-
+       colorMode(HSB, 360, 100, 100);
+       color bivariateColor1 = color(199, (100 * (income[i])/maxIncome), 100);
+       color bivariateColor2 = color(44, (100 * (health[i])/maxHealth), 100);
+       color blendedColor = blendColor(bivariateColor1, bivariateColor2, MULTIPLY);       
+       fill(blendedColor);
        
        rect(regionX, originY-topsOfStacks[regionIndex], regionWidth, regionHeight);
+       colorMode(RGB, 255, 255, 255);
        
     }
       
