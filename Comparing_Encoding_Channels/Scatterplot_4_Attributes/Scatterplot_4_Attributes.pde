@@ -233,14 +233,14 @@ void draw() {
 
     float population = pow((c * (sqrt(maxPopulation)/keyNumBrightnesses)), 2);
     String pop = NumberFormat.getInstance().format(population);
-    
+
     text(pop, keyXs[1] + keyWidth/5, keyYs[1] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses) + 5);
     colorMode(RGB, 255, 255, 255);
     fill(0, 0, 0);
   }
   textAlign(CENTER);
-  
-  
+
+
   textAlign(LEFT);
   int keyNumSizes = 5;
   for (int c=0; c<=keyNumSizes; c++) {
@@ -257,7 +257,7 @@ void draw() {
 
     float population = pow((c * (sqrt(maxPopulation)/keyNumSizes)), 2);
     String pop = NumberFormat.getInstance().format(population);
-    
+
     text(pop, keyXs[2] + keyWidth/4, keyYs[2] + keyHeight/10 + c*((keyHeight*8/10)/keyNumSizes) + 5);
     colorMode(RGB, 255, 255, 255);
     fill(0, 0, 0);
