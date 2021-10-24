@@ -103,8 +103,8 @@ void draw() {
   line(originX, originY, originX, originY-yHeight);
 
   fill(0, 0, 0);
-  textSize(16);
-  text("Population, Income, and Health per country", 0+paddingLeft + xWidth/2, 0+paddingTop*0.75);
+  textSize(20);
+  text("Population, Income, and Health Per Country", 0+paddingLeft + xWidth/2, 0+paddingTop*0.5);
   textSize(12);
 
   triangle(originX-2, originY-yHeight, originX, originY-yHeight-5, originX+2, originY-yHeight);
@@ -120,8 +120,27 @@ void draw() {
     textLeading(15);
     text(uniqueRegions.get(k).trim().replace(" ", "\n"), x1 + (x2-x1)/2, originY+paddingBottom*0.3);
   }
+  textAlign(RIGHT);
+  fill(0, 0, 0);
 
+  for (int l=0; l<=maxRegionPopulation; l+=100000000)
+  {
+    float value = originY - ((float)l/maxRegionPopulation)*yHeight;
+    stroke(210,210,210);
+    line(originX, value, originX+xWidth, value);
+    stroke(0,0,0);
+    line(originX-5, value, originX, value);
+    String pop = NumberFormat.getInstance().format(l);
+    text(pop, originX-8, value+3);
+    
+  }
+  text("Population", originX-8, originY - yHeight*(maxRegionPopulation+50000000)/maxRegionPopulation);
+  text("Regions", originX, originY+paddingBottom*0.3);
 
+  fill(0, 0, 0);
+  textAlign(CENTER);
+  
+  
   for (int i = 0; i < country.length; i++) {
     String thisRegion = countryRegions.get(country[i]);
     int regionIndex = 0;
@@ -145,22 +164,7 @@ void draw() {
     colorMode(RGB, 255, 255, 255);
   }
 
-  textAlign(RIGHT);
-  fill(0, 0, 0);
-
-  for (int l=0; l<=maxRegionPopulation; l+=100000000)
-  {
-    float value = originY - ((float)l/maxRegionPopulation)*yHeight;
-    line(originX-5, value, originX, value);
-    String pop = NumberFormat.getInstance().format(l);
-
-    text(pop, originX-8, value+3);
-  }
-  text("Population", originX-8, originY - yHeight*(maxRegionPopulation+50000000)/maxRegionPopulation);
-  text("Regions", originX, originY+paddingBottom*0.3);
-
-  fill(0, 0, 0);
-  textAlign(CENTER);
+  fill(0,0,0);
   
   float gridX = keyX + keyWidth/4;
   float gridY = keyY + 3*keyWidth/10;

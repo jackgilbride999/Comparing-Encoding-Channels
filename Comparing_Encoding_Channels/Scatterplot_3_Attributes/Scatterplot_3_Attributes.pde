@@ -160,7 +160,6 @@ void draw() {
         colorMode(RGB, 255, 255, 255);
         fill(0, 0, 0);
       }
-
     } else if (i==2) {
       for (int j=0; j<N; j++) {
         colorMode(HSB, 360, 100, 100);
@@ -174,51 +173,59 @@ void draw() {
       }
     }
 
-      for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
-        float value = originXs[i] + ((float)k/maxIncome)*xWidth;
-        line(value, originYs[i], value, originYs[i]+5);
-        text(k, value, originYs[i]+paddingBottom*0.4);
+    for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
+      float value = originXs[i] + ((float)k/maxIncome)*xWidth;
+      line(value, originYs[i], value, originYs[i]+5);
+      if (k!=0) {
+        stroke(240, 240, 240);
       }
-      textAlign(RIGHT);
-      for (int l=0; l<=maxHealth; l+=(maxHealth/9))
-      {
-        float value = originYs[i] - ((float)l/maxHealth)*yHeight;
-        line(originXs[i]-5, value, originXs[i], value);
-        text(l, originXs[i]-8, value+3);
+      line(value, originYs[i], value, originYs[i]-yHeight);
+      stroke(0, 0, 0);
+      text(k, value, originYs[i]+paddingBottom*0.4);
+    }
+    textAlign(RIGHT);
+    for (int l=0; l<=maxHealth; l+=(maxHealth/9))
+    {
+      float value = originYs[i] - ((float)l/maxHealth)*yHeight;
+      line(originXs[i]-5, value, originXs[i], value);
+      if (l!=0) {
+        stroke(240, 240, 240);
       }
-      textAlign(CENTER);
+      line(originXs[i], value, originXs[i]+xWidth, value);
+      stroke(0, 0, 0);
+      text(l, originXs[i]-8, value+3);
+    }
+    textAlign(CENTER);
 
     fill(255, 255, 255);
     rect(keyXs[i], keyYs[i], keyWidth, keyHeight);
     fill(0, 0, 0);
     text("KEY", keyXs[i] + keyWidth/2, keyYs[i] + keyHeight/20);
     fill(255, 255, 255);
-    
+
     textAlign(LEFT);
     colorMode(HSB, 360, 100, 100);
-    for(int c = 0; c<uniqueRegions.size(); c++){
+    for (int c = 0; c<uniqueRegions.size(); c++) {
       String region = uniqueRegions.get(c);
       int regionEncoding;
-      if(i==0){
-           regionEncoding = regionHues.get(region);
-           fill(regionEncoding, 100, 100);
-      } else if(i==1){
-           regionEncoding = regionSaturations.get(region); 
-           fill(120, regionEncoding, 100);
-      } else{
-           regionEncoding = regionBrightnesses.get(region); 
-           fill(120, 100, regionEncoding);
+      if (i==0) {
+        regionEncoding = regionHues.get(region);
+        fill(regionEncoding, 100, 100);
+      } else if (i==1) {
+        regionEncoding = regionSaturations.get(region);
+        fill(120, regionEncoding, 100);
+      } else {
+        regionEncoding = regionBrightnesses.get(region);
+        fill(120, 100, regionEncoding);
       }
-      
-      
+
+
       circle(keyXs[i] + keyWidth/10, keyYs[i] + keyHeight/10 + c*((keyHeight*9/10)/uniqueRegions.size()), 5);
-      fill(360,100,0);
-      text(region, keyXs[i] + keyWidth/5,   keyYs[i] + keyHeight/10 + c*((keyHeight*9/10)/uniqueRegions.size()) + 5);
-       
-}  
+      fill(360, 100, 0);
+      text(region, keyXs[i] + keyWidth/5, keyYs[i] + keyHeight/10 + c*((keyHeight*9/10)/uniqueRegions.size()) + 5);
+    }
     colorMode(RGB, 255, 255, 255);
     textAlign(CENTER);
-    fill(255,255,255);
-    
+    fill(255, 255, 255);
   }
 }

@@ -120,6 +120,32 @@ void draw() {
     text(yAxes[i], originXs[i] - paddingLeft/8, originYs[i] - yHeight/2);
     textAlign(CENTER);
     text(xAxes[i], originXs[i] + xWidth/2, originYs[i] + paddingBottom*0.75);
+    fill(0, 0, 0);
+
+
+    for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
+      float value = originXs[i] + ((float)k/maxIncome)*xWidth;
+      line(value, originYs[i], value, originYs[i]+5);
+      if (k!=0) {
+        stroke(240, 240, 240);
+      }
+      line(value, originYs[i], value, originYs[i]-yHeight);
+      stroke(0, 0, 0);
+      text(k, value, originYs[i]+paddingBottom*0.4);
+    }
+    textAlign(RIGHT);
+    for (int l=0; l<=maxPopulation; l+=(maxPopulation/10))
+    {
+      float value = originYs[i] - ((float)l/maxPopulation)*yHeight;
+      line(originXs[i]-5, value, originXs[i], value);
+      if (l!=0) {
+        stroke(240, 240, 240);
+      }
+      line(originXs[i], value, originXs[i]+xWidth, value);
+      stroke(0, 0, 0);
+      text(l/1000000, originXs[i]-8, value+3);
+    }
+    textAlign(CENTER);
     fill(255, 255, 255);
 
     if (i==0) {
@@ -167,20 +193,6 @@ void draw() {
       }
     }
 
-
-    for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
-      float value = originXs[i] + ((float)k/maxIncome)*xWidth;
-      line(value, originYs[i], value, originYs[i]+5);
-      text(k, value, originYs[i]+paddingBottom*0.4);
-    }
-    textAlign(RIGHT);
-    for (int l=0; l<=maxPopulation; l+=(maxPopulation/10))
-    {
-      float value = originYs[i] - ((float)l/maxPopulation)*yHeight;
-      line(originXs[i]-5, value, originXs[i], value);
-      text(l/1000000, originXs[i]-8, value+3);
-    }
-    textAlign(CENTER);
     fill(255, 255, 255);
 
     rect(keyXs[i], keyYs[i], keyWidth, keyHeight);
@@ -228,7 +240,7 @@ void draw() {
     int brightness =  c * 100/keyNumBrightnesses;
     fill(100, 0, 100-brightness);
 
-    circle(keyXs[1] + keyWidth/10, keyYs[1] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses), 5);
+    circle(keyXs[1] + keyWidth/10, keyYs[1] + keyHeight/10 + c*((keyHeight*8/10)/keyNumBrightnesses), 10);
     fill(360, 100, 0);
 
     float population = pow((c * (sqrt(maxPopulation)/keyNumBrightnesses)), 2);
