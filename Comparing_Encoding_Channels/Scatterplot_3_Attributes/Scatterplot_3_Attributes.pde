@@ -137,7 +137,32 @@ void draw() {
     text(yAxes[i], originXs[i] - paddingLeft/8, originYs[i] - yHeight/2);
     textAlign(CENTER);
     text(xAxes[i], originXs[i] + xWidth/2, originYs[i] + paddingBottom*0.75);
-    fill(255, 255, 255);
+    fill(0, 0, 0);
+
+
+    for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
+      float value = originXs[i] + ((float)k/maxIncome)*xWidth;
+      line(value, originYs[i], value, originYs[i]+5);
+      if (k!=0) {
+        stroke(240, 240, 240);
+      }
+      line(value, originYs[i], value, originYs[i]-yHeight);
+      stroke(0, 0, 0);
+      text(k, value, originYs[i]+paddingBottom*0.4);
+    }
+    textAlign(RIGHT);
+    for (int l=0; l<=maxHealth; l+=(maxHealth/9))
+    {
+      float value = originYs[i] - ((float)l/maxHealth)*yHeight;
+      line(originXs[i]-5, value, originXs[i], value);
+      if (l!=0) {
+        stroke(240, 240, 240);
+      }
+      line(originXs[i], value, originXs[i]+xWidth, value);
+      stroke(0, 0, 0);
+      text(l, originXs[i]-8, value+3);
+    }
+    textAlign(CENTER);
 
     if (i==0) {
       for (int j=0; j<N; j++) {
@@ -172,30 +197,6 @@ void draw() {
         textSize(12);
       }
     }
-
-    for (int k=0; k<=maxIncome; k+=(maxIncome/10)) {
-      float value = originXs[i] + ((float)k/maxIncome)*xWidth;
-      line(value, originYs[i], value, originYs[i]+5);
-      if (k!=0) {
-        stroke(240, 240, 240);
-      }
-      line(value, originYs[i], value, originYs[i]-yHeight);
-      stroke(0, 0, 0);
-      text(k, value, originYs[i]+paddingBottom*0.4);
-    }
-    textAlign(RIGHT);
-    for (int l=0; l<=maxHealth; l+=(maxHealth/9))
-    {
-      float value = originYs[i] - ((float)l/maxHealth)*yHeight;
-      line(originXs[i]-5, value, originXs[i], value);
-      if (l!=0) {
-        stroke(240, 240, 240);
-      }
-      line(originXs[i], value, originXs[i]+xWidth, value);
-      stroke(0, 0, 0);
-      text(l, originXs[i]-8, value+3);
-    }
-    textAlign(CENTER);
 
     fill(255, 255, 255);
     rect(keyXs[i], keyYs[i], keyWidth, keyHeight);
