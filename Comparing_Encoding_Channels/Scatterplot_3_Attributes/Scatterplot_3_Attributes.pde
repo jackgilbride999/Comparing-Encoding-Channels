@@ -45,8 +45,8 @@ void setup() {
   originXs = new int[3];
   originYs = new int[3];
   xAxes = new String[]{"Income", "Income", "Income"};
-  yAxes = new String[]{"Health", "Heath", "Health"};
-  titles = new String[]{"Income vs Health", "Income vs Health", "Income vs Health"};
+  yAxes = new String[]{"Average\nLife\nExpectancy\n(Years)", "Average\nLife\nExpectancy\n(Years)", "Average\nLife\nExpectancy\n(Years)"};
+  titles = new String[]{"Income vs Average Life Expectancy", "Income vs Average Life Expectancy", "Income vs Average Life Expectancy"};
   keyXs= new int[3];
   keyYs = new int[3];
 
@@ -62,7 +62,7 @@ void setup() {
   for (int i = 0; i < originXs.length; i++) {
     originXs[i] = sectionXs[i] + paddingLeft;
     originYs[i] = sectionYs[i] + sectionHeight - paddingBottom;
-    keyXs[i] = sectionXs[i] + paddingLeft/10;
+    keyXs[i] = sectionXs[i] + paddingLeft/20;
     keyYs[i] = sectionYs[i] + paddingTop;
   }
 
@@ -133,8 +133,8 @@ void draw() {
 
     triangle(originXs[i]-2, originYs[i]-yHeight, originXs[i], originYs[i]-yHeight-5, originXs[i]+2, originYs[i]-yHeight);
     triangle(originXs[i]+xWidth, originYs[i]-2, originXs[i]+xWidth, originYs[i]+2, originXs[i]+xWidth+5, originYs[i]);
-    textAlign(RIGHT);
-    text(yAxes[i], originXs[i] - paddingLeft/8, originYs[i] - yHeight/2);
+    textAlign(CENTER, CENTER);
+    text(yAxes[i], originXs[i] - paddingLeft/5, originYs[i] - yHeight/2);
     textAlign(CENTER);
     text(xAxes[i], originXs[i] + xWidth/2, originYs[i] + paddingBottom*0.75);
     fill(0, 0, 0);

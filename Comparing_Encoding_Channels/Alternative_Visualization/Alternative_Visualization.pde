@@ -104,7 +104,7 @@ void draw() {
 
   fill(0, 0, 0);
   textSize(20);
-  text("Population, Income, and Health Per Country", 0+paddingLeft + xWidth/2, 0+paddingTop*0.5);
+  text("Population, Income, and Life Expectancy Per Country", 0+paddingLeft + xWidth/2, 0+paddingTop*0.5);
   textSize(12);
 
   triangle(originX-2, originY-yHeight, originX, originY-yHeight-5, originX+2, originY-yHeight);
@@ -215,7 +215,7 @@ void draw() {
   text((int)maxHealth/2, gridX+gridWidth/2, gridY+gridHeight+15);
   text((int)maxHealth, gridX+gridWidth*5/6, gridY+gridHeight+15);
   
-  text("Health", gridX+gridWidth/2, gridY+gridHeight+35);
+  text("Life\nExpectancy\n(Years)", gridX+gridWidth/2, gridY+gridHeight+35);
 
   textAlign(RIGHT);
   text(0, gridX-5, gridY+gridHeight/6);
