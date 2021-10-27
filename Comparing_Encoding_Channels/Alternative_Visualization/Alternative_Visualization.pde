@@ -218,9 +218,9 @@ void draw() {
   text("Life\nExpectancy\n(Years)", gridX+gridWidth/2, gridY+gridHeight+35);
 
   textAlign(RIGHT);
-  text(0, gridX-5, gridY+gridHeight/6);
+  text((int)maxIncome, gridX-5, gridY+gridHeight/6);
   text((int)maxIncome/2, gridX-5, gridY+gridHeight/2);
-  text((int)maxIncome, gridX-5, gridY+gridHeight*5/6);
+  text(0, gridX-5, gridY+gridHeight*5/6);
   
   text("Income", gridX-gridWidth/4, gridY+gridHeight/2);
   
